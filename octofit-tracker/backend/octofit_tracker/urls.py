@@ -18,14 +18,23 @@ from django.urls import path, include
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
 
+
+import os
+
 @api_view(['GET'])
 def api_root(request, format=None):
+    codespace_name = os.environ.get("CODESPACE_NAME", "")
+    port_domain = os.environ.get("GITHUB_CODESPACES_PORT_FORWARDING_DOMAIN", "")
+    if codespace_name and port_domain:
+        api_base = f"https://{codespace_name}-8000.{port_domain}/api/"
+    else:
+        api_base = "/api/"
     return Response({
-        'users': '/api/users/',
-        'teams': '/api/teams/',
-        'activities': '/api/activities/',
-        'leaderboard': '/api/leaderboard/',
-        'workouts': '/api/workouts/',
+        'users': f'{api_base}users/',
+        'teams': f'{api_base}teams/',
+        'activities': f'{api_base}activities/',
+        'leaderboard': f'{api_base}leaderboard/',
+        'workouts': f'{api_base}workouts/',
     })
 
 urlpatterns = [
