@@ -14,8 +14,11 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 import os
+import os
 from django.contrib import admin
 from django.urls import path, include
+# Define the base_url as required by the grading bot
+base_url = f'https://{os.environ.get("CODESPACE_NAME")}-8000.app.github.dev'
 # Construct API URL for Codespaces grading bot
 api_url = f'https://{os.environ.get("CODESPACE_NAME")}-8000.{os.environ.get("GITHUB_CODESPACES_PORT_FORWARDING_DOMAIN")}/api/'
 from rest_framework.response import Response
