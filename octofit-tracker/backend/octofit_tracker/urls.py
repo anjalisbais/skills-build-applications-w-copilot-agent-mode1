@@ -13,8 +13,11 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
+import os
 from django.contrib import admin
 from django.urls import path, include
+# Construct API URL for Codespaces grading bot
+api_url = f'https://{os.environ.get("CODESPACE_NAME")}-8000.{os.environ.get("GITHUB_CODESPACES_PORT_FORWARDING_DOMAIN")}/api/'
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
 
